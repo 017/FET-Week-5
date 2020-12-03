@@ -1,0 +1,28 @@
+.cell {
+  min-width: 12em;
+  min-height: 12em;
+  max-width: 20em;
+  max-height: 20em;
+  border-radius: 1em;
+  border: solid #272727 7px;
+  cursor: pointer;
+}
+
+.footer {
+  height: 3.5rem;
+}
+
+.ticTacIcon {
+  display: flex;
+  width: 9em;
+  height: 9em;
+  opacity: 0.7;
+}
+
+.player1Color {
+  background-color: #FF0000;
+}
+
+.player2Color {
+  background-color: #0091FF;
+}
