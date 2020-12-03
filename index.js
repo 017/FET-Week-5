@@ -61,7 +61,6 @@ $('button.cell').on("click", () => {
   } else {
     if (currentTurn == 1) {
       icon.addClass('fa-times');
-      icon.find('svg').attr('data-icon', 'times');
     } else if (currentTurn == 2) {
       icon.removeClass('fas');
       icon.addClass('far');
