@@ -38,8 +38,8 @@
           <div class="modal-body">
             <div class="jumbotron jumbotron-fluid text-white bg-transparent" id='bg-changer'>
             <div class="container bg-gradient-dark">
-              <h1 class="display-4 font-weight-bold" id="ModalLabel">Fluid jumbotron</h1>
-              <p class="lead font-weight-bold" id="winMessageText"></p>
+              <h1 class="display-4 font-weight-bold pb-1"><span class="btn-dark p-2 m-4 rounded" id="ModalLabel"></span></h1>
+              <p class="lead font-weight-bold"><span class="btn-warning p-2 m-4 rounded" id="winMessageText"></span></p>
             </div>
           </div>
           </div>
@@ -110,12 +110,12 @@
     <footer class="footer mt-auto shadow-lg bg-secondary">
       <div class="float-left d-flex align-items-center ml-2">
         <nav class="list-group list-group-horizontal mr-2 ml-1">
-          <div id="currentTurnTracker" class="p-1 m-1 rounded text-white bg-dark currentTurnTracker">Current Turn: <div class="activePlayer bold badge m-2">Player 1</div></div>
+          <div class="p-1 m-1 rounded text-white bg-dark currentTurnTracker">Current Turn: <div class="activePlayer bold badge m-2" id="currentTurnTracker">Player 1</div></div>
         </nav>
       </div>
       <div class="float-right btn-group p-1 m-1 d-flex align-items-center" role="group" aria-labels="Turn Options">
         <!--<button type="button" class="btn btn-dark">End Turn</button>-->
-        <button type="button" class="btn btn-warning" id="skipButton">Skip Turn</button>
+        <button type="button" class="btn btn-warning" id="newGameButton">New Game</button>
       </div>
     </footer>
 

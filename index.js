@@ -13,7 +13,8 @@ let tied = false;
 
 let X_cells = [];
 let O_cells = [];
-let win_combos = [
+
+const winCombinations = [
   ['0', '1', '2'],
   ['3', '4', '5'],
   ['6', '7', '8'],
@@ -27,6 +28,7 @@ let win_combos = [
 const gameWinText = $('#ModalLabel');
 const gameWinDesc = $('#winMessageText');
 const gameWinBG = $('#bg-changer');
+
 function updateWinnerText() {
   let tieTitle;
   let tieMessage;
@@ -87,6 +89,7 @@ function updateWinnerText() {
     `${player1} is the winner!`,
   ];
 
+  
   let player2 = 'Player 2';
   let player2WinnerMessages = [
     `${player2} won!`,
@@ -126,7 +129,7 @@ function updateWinnerText() {
     gameWinText.html(winnerTitle);
     gameWinDesc.html(winnerMessage);
     gameWinBG.css("background-image", `url(${winnerBG})`);
-  } else if (tied) {
+  } else if (winner == 0) {
     let indexT = Math.floor(Math.random() * tieTitles.length);
     let indexM = Math.floor(Math.random() * tieMessages.length);
     let indexBG = Math.floor(Math.random() * tieBanners.length);
@@ -187,7 +190,13 @@ function endTurn() {
   }
   return turnCounter;
 }
-//$('#skipButton').on('click', endTurn());
+
+$(document).on('click', '#newGameButton', function() {
+  resetBoard();
+  currentTurn = 1;
+  currentTurnDisplay = `Player 1`;
+  updateTurnCounter(currentTurnDisplay);
+});
 
 function updateTurnNumber() {
   // Return the current turn number.
@@ -216,7 +225,7 @@ function checkWin() {
   //   return true;
   // }
 
-  win_combos.find((element, index, array) => {
+  winCombinations.find((element, index, array) => {
     if ( winner == 1 || winner == 2 ) {
       return true;
     }
@@ -244,27 +253,30 @@ function checkWin() {
     }
   });
 }
-
+let unwinnableCombos;
 function checkTie() {
-  let combined = O_cells.concat(X_cells);
-  let amount = 0;
+  let combinedSquares = O_cells.concat(X_cells);
+  let counter = winCombinations.length;
+  tieTest = (el, i, arr) => {
 
-  tieTest = element => {
-    if (compareArrays(element, combined)) {
-      if (amount > 7) {
-        tied = true;
-        return true;
-      } else {
-        amount++;
-        tied = false;
-        return false;
-      }
-    } else {
-      return false;
+    if (unwinnableCombos === 0) {
+      tied = true;
+      winner = 0;
+      return true;
     }
+    
+    if (compareArrays(arr[i], combinedSquares)) {
+      counter = --counter;
+      unwinnableCombos = counter;
+      console.log(counter);
+    }
+    return false;
   };
-
-  return win_combos.find(tieTest);
+  if(winCombinations.find(tieTest)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 
@@ -280,25 +292,26 @@ function updateScore(amount, type) {
 }
 
 function endGame() {
-  if (tied) {
+  if (checkTie()) {
     ties++;
     updateScore(ties, 'tieType');
     tied = false;
   } else {
     if (winner == 1) {
       updateScore(p1Wins, 'p1Type');
-    } else if (winner == '2') {
+    } else if (winner == 2) {
       updateScore(p2Wins, 'p2Type');
     }
   }
   popGameEndMessage();
-  
+  resetBoard();
   winner = -1;
   // Add Prompt for Starting a New Game
   // Also add a 'new game' button
 }
 
 function turnCheck() {
+  checkTie();
   if (checkWin() === false) {
     // Just end the turn if the winner check returns false
     endTurn();
@@ -310,9 +323,6 @@ function turnCheck() {
       p2Wins++;
       endGame();
     }
-  } else if (tied) {
-    endGame();
-    // If the game is a cat's game(unwinnable)
   } else {
     endTurn();
   }
@@ -323,13 +333,23 @@ function resetBoard() {
     let resetIcon = $(this).find('i');
     if (resetIcon.hasClass('fa-times')) {
       resetIcon.removeClass('fa-times');
-    } else if (resetIcon.hasClass('fa-circle')) {
+    }
+    if (resetIcon.hasClass('fa-circle')) {
       resetIcon.removeClass('fa-circle');
 
       // Reset any uses of 'far' for the circle icons (Circles use 'far', so we have to switch it back each time)
       if (resetIcon.hasClass('far')) {
         resetIcon.removeClass('far');
         resetIcon.addClass('fas');
+      }
+    }
+    // Clean up Custom Icon Coloring for icons
+    if ( resetIcon.hasClass('iconP1') || resetIcon.hasClass('iconP2') ) {
+      if ( resetIcon.hasClass('iconP1')) {
+        resetIcon.removeClass('iconP1');
+      }
+      if ( resetIcon.hasClass('iconP2')) {
+        resetIcon.removeClass('iconP2');
       }
     }
   });
@@ -340,12 +360,12 @@ $(document).on('click', 'button.cell', function() {
   if (icon.hasClass('fa-times') || icon.hasClass('fa-circle')) {
     // Do nothing if we already have an icon
   } else {
-    if (currentTurn == 1) {
+    if (currentTurn === 1) {
       icon.addClass('fa-times');
       icon.addClass('iconP1');
       updateCellElements("fa-times");
       turnCheck();
-    } else if (currentTurn == 2) {
+    } else if (currentTurn === 2) {
       icon.removeClass('fas');
       icon.addClass('far');
       //icon.removeClass('fa-10x');
