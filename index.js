@@ -23,14 +23,31 @@ let win_combos = [
   ['0', '4', '8'],
   ['2', '4', '6']
 ];
+
 const gameWinText = $('#ModalLabel');
 const gameWinDesc = $('#winMessageText');
+const gameWinBG = $('#bg-changer');
 function updateWinnerText() {
-  let winnerName = '';
   let tieTitle;
   let tieMessage;
   let winnerTitle;
   let winnerMessage;
+
+  let player1WinBanners = [
+    "./img/player1/win_01.jpg",
+    "./img/player1/win_02.jpg",
+    "./img/player1/win_03.jpg",
+  ];
+  let player2WinBanners = [
+    "./img/player2/win_01.jpg",
+    "./img/player2/win_02.jpg",
+    "./img/player2/win_03.jpg",
+  ];
+  let tieBanners = [
+    "./img/tie/tie_01.jpg",
+    "./img/tie/tie_02.jpg",
+    "./img/tie/tie_03.jpg",
+  ];
 
   let tieTitles = [
     `Tie!`,
@@ -92,25 +109,33 @@ function updateWinnerText() {
   if (winner == 1) {
     let indexT = Math.floor(Math.random() * player1WinnerTitles.length);
     let indexM = Math.floor(Math.random() * player1WinnerMessages.length);
+    let indexBG = Math.floor(Math.random() * player1WinBanners.length);
     winnerTitle = player1WinnerTitles[indexT];
     winnerMessage = player1WinnerMessages[indexM];
-    $(gameWinText).html(winnerTitle);
-    $(gameWinDesc).html(winnerMessage);
+    winnerBG = player1WinBanners[indexBG];
+    gameWinText.html(winnerTitle);
+    gameWinDesc.html(winnerMessage);
+    gameWinBG.css("background-image", `url(${winnerBG})`);
   } else if (winner == 2) {
     let indexT = Math.floor(Math.random() * player2WinnerTitles.length);
     let indexM = Math.floor(Math.random() * player2WinnerMessages.length);
+    let indexBG = Math.floor(Math.random() * player2WinBanners.length);
     winnerTitle = player2WinnerTitles[indexT];
     winnerMessage = player2WinnerMessages[indexM];
-    $(gameWinText).html(winnerTitle);
-    $(gameWinDesc).html(winnerMessage);
+    winnerBG = player2WinBanners[indexBG];
+    gameWinText.html(winnerTitle);
+    gameWinDesc.html(winnerMessage);
+    gameWinBG.css("background-image", `url(${winnerBG})`);
   } else if (tied) {
     let indexT = Math.floor(Math.random() * tieTitles.length);
     let indexM = Math.floor(Math.random() * tieMessages.length);
-    //winnerName = tieGameTitles[index];
+    let indexBG = Math.floor(Math.random() * tieBanners.length);
     tieTitle = tieTitles[indexT];
     tieMessage = tieMessages[indexM]
-    $(gameWinText).html(tieTitle);
-    $(gameWinDesc).html(tieMessage);
+    tieBG = tieBanners[indexBG];
+    gameWinText.html(tieTitle);
+    gameWinDesc.html(tieMessage);
+    gameWinBG.css("background-image", `url(${tieBG})`);
   }
 
 }
