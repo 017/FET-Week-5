@@ -13,70 +13,97 @@
   <body class="bg-secondary justify-content-center">
     <header>
       <div class="btn-group p-1 m-1 d-flex align-items-center">
-        <div class="p-1 m-1 rounded text-white player1Color card-title ml-2 shadow">Player 1 Score
-          <ul class="list-group list-group-flush align-items-center bg-dark rounded m-2 p-2">
-            <li class="list-group" id="player1Score">0</li>
+        <div class="p-1 m-2 rounded text-white player1Color card-title ml-2 shadow pl-4 pr-4 text-dark font-weight-bold">Player 1 Score
+          <ul class="list-group list-group-flush align-items-center bg-dark rounded m-2 p-2 text-light">
+            <li class="list-group" id="p1ScoreTracker">0</li>
           </ul>
         </div>
-        <div class="p-1 m-1 rounded text-white player2Color card-title shadow">Player 2 Score
-          <ul class="list-group list-group-flush align-items-center bg-dark rounded m-2 p-2">
-            <li class="list-group" id="player2Score">0</li>
+        <div class="p-1 m-2 rounded text-white player2Color card-title shadow pl-4 pr-4 text-dark font-weight-bold">Player 2 Score
+          <ul class="list-group list-group-flush align-items-center bg-dark rounded m-2 p-2 text-light">
+            <li class="list-group" id="p2ScoreTracker">0</li>
+          </ul>
+        </div>
+        <div class="p-1 m-2 rounded text-white bg-warning card-title shadow pl-4 pr-4 text-dark font-weight-bold">Tied Games
+          <ul class="list-group list-group-flush align-items-center bg-dark rounded m-2 p-2 text-light">
+            <li class="list-group" id="tieTracker">0</li>
           </ul>
         </div>
       </div>
     </header>
-    <div class="container-xl m-3 p-3 bg-dark rounded justify-content-center">
+
+    <!-- Modal -->
+    <div class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="winMessageText">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Board -->
+    <div class="board container-xl m-3 p-3 bg-dark rounded justify-content-center" id="board">
       <div class="row d-flex justify-content-center">
-
         <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="0"></i></button>
           </button>
         </div>
         <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="1"></i></button>
           </button>
         </div>
         <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
-          </button>
-        </div>
-
-        <div class="w-100 d-flex"></div>
-
-        <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
-          </button>
-        </div>
-        <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
-          </button>
-        </div>
-        <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="2"></i></button>
           </button>
         </div>
 
         <div class="w-100 d-flex"></div>
 
         <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="3"></i></button>
           </button>
         </div>
         <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="4"></i></button>
           </button>
         </div>
         <div class="col-auto d-flex">
-          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell" id="cell9" href="javascript:void">
-            <i class="fas fa-10x"></i></button>
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="5"></i></button>
+          </button>
+        </div>
+
+        <div class="w-100 d-flex"></div>
+
+        <div class="col-auto d-flex">
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="6"></i></button>
+          </button>
+        </div>
+        <div class="col-auto d-flex">
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" href="javascript:void">
+            <i class="fas fa-10x" id="7"></i></button>
+          </button>
+        </div>
+        <div class="col-auto d-flex">
+          <button type="button" class="d-flex shadow-lg container-sm p-2 m-2 bg-secondary cell justify-content-center" id="cell9" href="javascript:void">
+            <i class="fas fa-10x" id="8"></i></button>
           </button>
         </div>
       </div>
@@ -89,8 +116,8 @@
         </nav>
       </div>
       <div class="float-right btn-group p-1 m-1 d-flex align-items-center" role="group" aria-labels="Turn Options">
-        <button type="button" class="btn btn-dark">End Turn</button>
-        <button type="button" class="btn btn-warning">Skip Turn</button>
+        <!--<button type="button" class="btn btn-dark">End Turn</button>-->
+        <button type="button" class="btn btn-warning" id="skipButton">Skip Turn</button>
       </div>
     </footer>
 

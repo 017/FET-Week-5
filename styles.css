@@ -1,3 +1,5 @@
+
+
 .cell {
   min-width: 12em;
   min-height: 12em;
@@ -17,6 +19,14 @@
   width: 9em;
   height: 9em;
   opacity: 0.7;
+}
+
+.iconP1 {
+  color: #FF0000;
+}
+
+.iconP2 {
+  color: #0091FF;
 }
 
 .player1Color {
