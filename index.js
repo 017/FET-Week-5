@@ -310,7 +310,6 @@ function endGame() {
 }
 
 function turnCheck() {
-  checkTie();
   if (checkWin() === false) {
     // Just end the turn if the winner check returns false
     endTurn();
@@ -325,6 +324,7 @@ function turnCheck() {
   } else {
     endTurn();
   }
+  checkTie();
 }
 
 function resetBoard() {
