@@ -268,7 +268,6 @@ function checkTie() {
     if (compareArrays(arr[i], combinedSquares)) {
       counter = --counter;
       unwinnableCombos = counter;
-      console.log(counter);
     }
     return false;
   };
